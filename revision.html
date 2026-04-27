@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track-My-Learnings | Revision Schedule</title>
+  
+  <!-- CDNs -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="light-mode">
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Track-My-Learnings</span>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-ghost" style="text-decoration: none;" title="Go to Dashboard">
+            <i class="fas fa-home"></i> <span>Home</span>
+        </a>
+        <a href="calendar.html" class="btn btn-ghost" style="text-decoration: none;" title="View Activity Calendar">
+          <i class="fas fa-calendar-alt"></i> <span>Calendar</span>
+        </a>
+        <button class="btn btn-ghost" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Page Title & Description -->
+      <div style="margin-bottom: 2rem;">
+        <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">Spaced Repetition</h1>
+        <p style="color: var(--text-dim-light); max-width: 600px;">
+          Add topics you want to master. We'll automatically generate a scientifically proven revision schedule to help you remember everything forever.
+        </p>
+      </div>
+
+      <!-- Add Interaction -->
+      <div class="card" style="margin-bottom: 2rem;">
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <input type="text" id="revisionInput" placeholder="What do you want to revise? (e.g. Calculus Basics)" 
+                style="flex: 1; min-width: 250px; padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid var(--border-light); background: var(--bg-light); color: var(--text-light); outline: none;">
+            <button id="addRevisionBtn" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add for Revision
+            </button>
+        </div>
+      </div>
+
+      <!-- Revision List Container -->
+      <div id="revisionList">
+        <!-- Rendered by JS -->
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Progress Saved!</div>
+
+  <!-- Application Scripts -->
+  <script src="js/state.js"></script>
+  <!-- Module Scripts -->
+  <script src="js/modules/revision/revisionRender.js"></script>
+  <script src="js/modules/revision/revisionHandlers.js"></script>
+  <script src="js/modules/revision/revision.js"></script>
+  <script>
+      // Toast helper if not using full UI.js
+      window.UI = {
+          showToast(msg) {
+              const toast = document.getElementById('toast');
+              toast.innerText = msg;
+              toast.style.display = 'block';
+              setTimeout(() => toast.style.display = 'none', 2000);
+          }
+      };
+  </script>
+</body>
+</html>

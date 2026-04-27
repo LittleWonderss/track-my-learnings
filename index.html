@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track-My-Learnings | Personal Learning Tracker</title>
+  
+  <!-- CDNs -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="light-mode">
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Track-My-Learnings</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="UI.openCategoryModal()" title="Add New Category">
+          <i class="fas fa-plus"></i> <span>Add Category</span>
+        </button>
+        <a href="revision.html" class="btn btn-ghost" style="text-decoration: none;" title="Spaced Repetition Schedule">
+          <i class="fas fa-repeat"></i> <span>Revision</span>
+        </a>
+        <a href="calendar.html" class="btn btn-ghost" style="text-decoration: none;" title="View Activity Calendar">
+          <i class="fas fa-calendar-alt"></i> <span>Calendar</span>
+        </a>
+        <button class="btn btn-ghost" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="btn btn-ghost" onclick="exportData()" title="Export JSON">
+          <i class="fas fa-download"></i>
+        </button>
+        <button class="btn btn-ghost" id="resetBtn" onclick="resetProgress()" title="Reset All">
+          <i class="fas fa-redo-alt"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+      <!-- Main Content -->
+      <main>
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Completion</div>
+            <div class="stat-val" id="percentVal">0%</div>
+            <div class="progress-container">
+              <div class="progress-bg">
+                <div class="progress-fill" id="topProgressFill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Daily Streak</div>
+            <div class="stat-val"><i class="fas fa-fire streak-fire"></i> <span id="streakVal">0</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Tasks Left</div>
+            <div class="stat-val" id="leftVal">0</div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search topics...">
+          </div>
+        </div>
+
+        <!-- Checklist Container -->
+        <div class="checklist-container">
+          <div class="checklist-header">
+            <h2>Topics</h2>
+            <span class="stat-label" id="itemsCount">0 items total</span>
+          </div>
+          <div id="topicsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Motivation -->
+        <div class="card">
+          <h3 style="margin-top:0"><i class="fas fa-quote-left" style="color:var(--primary)"></i> Wisdom</h3>
+          <p id="quoteBox" style="font-style: italic; font-size: 0.95rem; color: var(--text-dim-light)">
+            "Mathematics is the language in which God has written the universe."
+          </p>
+        </div>
+
+        <!-- Next Recommended -->
+        <div class="card">
+          <h3 style="margin-top:0">Up Next</h3>
+          <div id="nextRecommended" class="recommendation">
+            No pending topics!
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="card">
+          <h3 style="margin-top:0">Insights</h3>
+          <canvas id="progressChart"></canvas>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Notes Modal -->
+  <div id="notesModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Topic Notes</h3>
+      <textarea id="noteText"
+        style="width:100%; height: 150px; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--border-light)"
+        placeholder="Write your thoughts/resources here..."></textarea>
+      <div style="display:flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px">
+        <div>
+          <label style="font-size:0.8rem">Target Date:</label>
+          <input type="date" id="targetDate"
+            style="padding: 5px; border-radius: 5px; border: 1px solid var(--border-light)">
+        </div>
+        <div style="display:flex; gap: 10px">
+          <button class="btn btn-ghost" onclick="UI.closeModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="UI.saveNote()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Progress Saved!</div>
+
+  <!-- Application Scripts -->
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
